@@ -15,5 +15,5 @@ async function carregarUsuario() {
  
 }
 
-// Carrega os planejamentos ao abrir a página
+// Carrega os dados do usuario ao abrir a página
 window.onload = carregarUsuario;

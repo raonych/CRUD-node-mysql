@@ -20,22 +20,17 @@ const Usuario = con.define("usuarios",{
     }
 })
 
-const Diario = con.define("diarios",{
-    diario_nome:{
-        type: Sequelize.STRING,
-    }
-})
 const Entradas = con.define("entradas",{
-    entr_titulo: {
+    titulo: {
         type: Sequelize.STRING,
     },
-    entr_conteudo: {
+    conteudo: {
         type: Sequelize.STRING,
     },
-    entr_time: {
+    time: {
         type: Sequelize.TIME,
     },
-    entr_date: {
+    date: {
         type: Sequelize.DATE
     }
 })
@@ -62,9 +57,29 @@ const Backup = con.define("backup",{
     },
 })
 
-/*Diario.hasMany(Entradas, { foreignKey: 'diarioId' });
+const Diario = con.define("diarios", {
+    diario_nome: {
+        type: Sequelize.STRING,
+    },
+    usuarioId: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'usuarios', 
+            key: 'id',
+        },
+    },
+});
+
+// Relacionamento entre Diario e Usuario 
+Diario.belongsTo(Usuario, { foreignKey: 'usuarioId' });
+Usuario.hasMany(Diario, { foreignKey: 'usuarioId' });
+
+// Relacionamento entre Diario e Entradas 
+Diario.hasMany(Entradas, { foreignKey: 'diarioId' });
 Entradas.belongsTo(Diario, { foreignKey: 'diarioId' });
-*/
+
+
+
 const syncDatabase = async () => {
     try {
         await  Usuario.sync({ alter: true});

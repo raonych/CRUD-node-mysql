@@ -1,0 +1,45 @@
+const { Usuario, Diario, Entradas } = require("../database/db");  // Importando os modelos
+
+// Função para adicionar uma entrada no diário
+const adicionarEntradaDiario = async (req, res) => {
+    const { usuarioId, titulo, conteudo, time, date } = req.body;
+
+    try {
+        // Verifica se o usuário existe
+        const usuario = await Usuario.findByPk(usuarioId);
+        if (!usuario) {
+            return res.status(400).json({ erro: "Usuário não encontrado" });
+        }
+
+        // Verifica se o usuário já tem um diário
+        let diario = await Diario.findOne({ where: { usuarioId: usuarioId } });
+
+        // Se o usuário não tiver um diário, cria um novo diário
+        if (!diario) {
+            diario = await Diario.create({
+                diario_nome: `Diário de ${usuario.nome}`,  // Nome padrão do diário
+                usuarioId: usuarioId
+            });
+        }
+
+        // Cria a entrada no diário
+        const novaEntrada = await Entradas.create({
+            titulo,
+            conteudo,
+            time,
+            date,
+            diarioId: diario.id  // Associa a entrada ao diário
+        });
+
+        res.status(201).json({
+            mensagem: "Entrada adicionada com sucesso!",
+            entrada: novaEntrada
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ erro: "Erro ao adicionar entrada no diário" });
+    }
+};
+
+module.exports = { adicionarEntradaDiario };

@@ -1,4 +1,4 @@
-document.querySelector(".form").addEventListener("submit", function(event) {
+document.getElementById("form").addEventListener("submit", function(event) {
     event.preventDefault();
 
     const email = document.getElementById("email").value;
@@ -14,7 +14,7 @@ document.querySelector(".form").addEventListener("submit", function(event) {
     .then(response => response.json())
     .then(data => {
         if (data.token) {
-            localStorage.setItem("token", data.token);
+            localStorage.setItem("usuarioId", data.token);
             window.location.href = "./diario.html"; // Redireciona para o tela inicial
         } else {
             alert(data.erro || "Erro desconhecido");

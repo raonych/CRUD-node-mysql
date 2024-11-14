@@ -25,7 +25,7 @@ document.querySelector("#signupForm").addEventListener("submit", function(event)
     .then(response => response.json())
     .then(data => {
         if (data.token) {
-            // Se o cadastro for bem-sucedido, redireciona o usuário para o diario 
+            // Se o cadastro for bem-sucedido, redireciona o usuário para o dashboard
             localStorage.setItem("token", data.token);
             window.location.href = "../view/diario.html";
         } else {

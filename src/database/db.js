@@ -3,6 +3,7 @@ const Sequelize = require("sequelize");
 const con = new Sequelize("DiarioBordo", "root", "",{
     host: "localhost",
     dialect: "mysql",
+    logging: false, // Desabilita logs do SQL no console
 });
 
 

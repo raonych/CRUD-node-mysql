@@ -15,7 +15,7 @@ document.querySelector(".form").addEventListener("submit", function(event) {
     .then(data => {
         if (data.token) {
             localStorage.setItem("token", data.token);
-            window.location.href = "../view/diario.html"; // Redireciona para o tela inicial
+            window.location.href = "./diario.html"; // Redireciona para o tela inicial
         } else {
             alert(data.erro || "Erro desconhecido");
         }

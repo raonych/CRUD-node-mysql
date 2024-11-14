@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Cadastro</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="container">
+        <form id="signupForm" class="singin-form">
+            <h1 class="title">Faça seu cadastro</h1>
+            <div class="box-margin">
+                <label class="label-text" for="Name">Nome completo</label>
+                <input class="enter-text" type="text" id="Name" placeholder="Digite seu nome" required />
+            </div>
+
+            <div class="box-margin">
+                    <label for="date" class="label-text">Data de Nascimento</label>
+                    <input type="date" name="date" id="date" class="enter-text" required />
+            </div>
+
+            <div class="box-margin">
+                <label class="label-text" for="email">E-mail</label>
+                <input class="enter-text" type="email" id="email" placeholder="Digite seu email" required />
+            </div>
+
+            <div class="box-margin">
+                <label class="label-text" for="password">Senha</label>
+                <input class="enter-text" type="password" id="password" placeholder="Crie uma senha" required />
+            </div>
+
+            <div class="box-margin">
+                <label class="label-text" for="confirmPassword">Confirme sua Senha</label>
+                <input class="enter-text" type="password" id="confirmPassword" placeholder="Confirme sua senha" required />
+            </div>
+            <button type="submit" class="send">Cadastrar</button>
+
+            <div class="box-singin">
+                <span class="singin">
+                    Já tem uma conta?
+                    <a href="./index.html" class="singin-link">Entre agora</a>
+                </span>
+            </div>
+        </form>
+    </section>
+    <script src="../static/signup.js"></script>
+</body>
+</html>

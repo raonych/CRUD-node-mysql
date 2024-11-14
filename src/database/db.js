@@ -7,13 +7,14 @@ const con = new Sequelize("DiarioBordo", "root", "",{
 
 
 const Usuario = con.define("usuarios",{
-    user_nome:{
+    nome:{
         type: Sequelize.STRING,
     },
-    user_email:{
+    email:{
         type: Sequelize.STRING,
+        unique: true,  // Garantir que o e-mail seja único
     },
-    user_senha:{
+    senha:{
         type: Sequelize.STRING,
     }
 })
@@ -63,19 +64,20 @@ const Backup = con.define("backup",{
 /*Diario.hasMany(Entradas, { foreignKey: 'diarioId' });
 Entradas.belongsTo(Diario, { foreignKey: 'diarioId' });
 */
-Usuario.sync({ force: true});
-Backup.sync({ force: true});
-Diario.sync({ force: true});
-Lembrete.sync({ force: true});
-Entradas.sync({ force: true});
+const syncDatabase = async () => {
+    try {
+        await  Usuario.sync({ alter: true});
+        await Backup.sync({ alter: true});
+        await  Diario.sync({ alter: true});
+        await Lembrete.sync({ alter: true});
+        await Entradas.sync({ alter: true});
+        console.log("Tabelas sincronizadas com sucesso");
+    } catch (err) {
+        console.error("Erro ao sincronizar as tabelas:", err);
+    }
+};
 
-
-con.authenticate().then(function(){
-    console.log("conexão realizada com sucesso");
-
-}).catch(function(err){
-    console.log("Erro ao conectar com o banco de dados" + err);
-})
+syncDatabase();
 
 module.exports = {
     Usuario,

@@ -4,7 +4,7 @@ const { Usuario, Diario, Entradas } = require("../database/db");  // Importando 
 
 const exibirDiarios = async (req, res) => {
     try {
-        const usuarioId = req.body;
+        const usuarioId = req.usuarioId;
 
         if (!usuarioId) {
             return res.status(400).json({ message: "Usuário não autenticado ou inválido." });
@@ -19,7 +19,7 @@ const exibirDiarios = async (req, res) => {
 
         res.json(diarios);
     } catch (error) {
-        console.error("Erro ao buscar diários:", error);
+        console.error("Erro ao buscar diários:", error.message);
         res.status(500).json({ message: "Erro interno ao buscar diários." });
     }
 };
@@ -27,8 +27,9 @@ const exibirDiarios = async (req, res) => {
 
 
 const adicionarDiario = async (req,res) => {
-    const { usuarioId, nome, resumo, date } = req.body;
+    const {nome, resumo, date } = req.body;
     try {
+         const usuarioId = req.usuarioId;
         // Verifica se o usuário existe
         const usuario = await Usuario.findByPk(usuarioId);
         if (!usuario) {
@@ -57,9 +58,11 @@ const adicionarDiario = async (req,res) => {
 
 
 const adicionarEntradaDiario = async (req, res) => {
-    const { usuarioId, titulo, conteudo, time, date } = req.body;
+    const {titulo, conteudo, time, date } = req.body;
+    
 
     try {
+        const usuarioId = req.usuarioId;
         // Verifica se o usuário existe
         const usuario = await Usuario.findByPk(usuarioId);
         if (!usuario) {

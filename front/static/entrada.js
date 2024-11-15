@@ -1,17 +1,18 @@
-console.log(localStorage.getItem("usuarioId"))
+console.log(localStorage.getItem("token"))
 
 document.querySelector("#entradaForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Impede o envio padrão do formulário
 
     // Coleta os dados dos campos do formulário
     const usuarioId = localStorage.getItem("usuarioId"); // Assumindo que o ID do usuário está armazenado no localStorage
+    const token = localStorage.getItem("token"); 
     const titulo = document.getElementById("titulo").value;
     const conteudo = document.getElementById("conteudo").value;
     const time = document.getElementById("time").value; // Hora no formato HH:MM:SS
     const date = document.getElementById("date").value; // Data no formato YYYY-MM-DD
 
     // Valida se o usuário está logado (com usuárioId no localStorage)
-    if (!usuarioId) {
+    if (!token) {
         alert("Você precisa estar logado para adicionar uma entrada.");
         return;
     }
@@ -21,7 +22,7 @@ document.querySelector("#entradaForm").addEventListener("submit", function(event
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}` // Envia o token JWT se estiver presente no localStorage
+            "Authorization": `Bearer ${token}` // Envia o token JWT se estiver presente no localStorage
         },
         body: JSON.stringify({ usuarioId, titulo, conteudo, time, date })
     })

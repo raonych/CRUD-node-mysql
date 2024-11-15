@@ -1,24 +1,16 @@
 // Função para simular o logout
 function logout() {
-    alert("Você foi deslogado!");
     localStorage.setItem("usuarioId",null);
     localStorage.setItem("token",null);
-    window.location.href = "index.html";
-}
-
-usuarioId = localStorage.getItem("usuarioId")
-console.log(usuarioId)
-if(usuarioId == null){
     window.location.href = "index.html";
 }
 
 
 const carregarDiarios = async () => {
     try {
-        const usuarioId = localStorage.getItem("usuarioId");
-
-        if (!usuarioId) {
-            alert("Usuário não autenticado!");
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("Usuário não autenticado.");
             return;
         }
 
@@ -26,9 +18,8 @@ const carregarDiarios = async () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("token")}` 
-            },
-            body: JSON.stringify({ usuarioId })
+                "Authorization": `Bearer ${token}`
+            }
         });
 
         if (!resposta.ok) {
@@ -38,39 +29,29 @@ const carregarDiarios = async () => {
 
         const diarios = await resposta.json();
 
-        if (!diarios.length) {
-            alert("Nenhum diário encontrado.");
-            return;
-        }
-
         const container = document.getElementById("container-diarios");
-        if (!container) {
-            console.error("Elemento container-diarios não encontrado.");
-            return;
-        }
 
-        // Adiciona os diários ao container
         diarios.forEach((diario) => {
             const diarioDiv = document.createElement("div");
+            diarioDiv.classList.add("card", "mb-3");
 
             diarioDiv.innerHTML = `
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">${diario.nome}</h5>
-                        <p class="card-text">Resumo: ${diario.resumo}<br>Data: ${new Date(diario.data).toLocaleDateString()}</p>
-                        <button class="btn btn-info btn-sm">Ver Detalhes</button>
-                    </div>
+                <div class="card-body">
+                    <h5 class="card-title">${diario.nome || "Sem título"}</h5>
+                    <p class="card-text">Resumo: ${diario.resumo || "Sem resumo"}<br>Data: ${diario.data ? new Date(diario.data).toLocaleDateString() : "Data não disponível"}</p>
+                    <button class="btn btn-info btn-sm">Ver Detalhes</button>
                 </div>
             `;
 
             container.appendChild(diarioDiv);
         });
-
     } catch (error) {
-        console.error("Erro ao carregar os diários:", error);
-        alert("Erro ao carregar os diários. Por favor, tente novamente mais tarde.");
+        console.error("Erro ao carregar diários:", error.message);
+        alert("Erro ao carregar diários, tente novamente mais tarde.");
     }
 };
+
+
 
 document.addEventListener("DOMContentLoaded", carregarDiarios);
 

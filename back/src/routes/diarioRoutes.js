@@ -2,13 +2,12 @@
 const express = require("express");
 const router = express.Router();
 const diarioController = require("../controllers/diariocontroller");
+const authMiddleware = require("../controllers/authMiddleware");
 
-// Rota para adicionar uma entrada
-router.post("/createEntrada", diarioController.adicionarEntradaDiario );
-
-router.post("/createDiario", diarioController.adicionarDiario );
-
-router.post("/exibirDiarios", diarioController.exibirDiarios );
+// Rotas para adicionar entradas, criar diarios e exibir eles
+router.post("/createEntrada", authMiddleware, diarioController.adicionarEntradaDiario);
+router.post("/createDiario", authMiddleware, diarioController.adicionarDiario);
+router.post("/exibirDiarios", authMiddleware, diarioController.exibirDiarios);
 
 
 

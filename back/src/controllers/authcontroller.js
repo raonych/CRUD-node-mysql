@@ -3,7 +3,7 @@ const { Usuario} = require("../database/db");  // Importando diretamente de db.j
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const SECRET_KEY = "yourSecretKey"; // Troque por uma chave segura
+const SECRET_KEY = "admin"; // Troque por uma chave segura
 
 // Função para cadastro de usuário
 const cadastrarUsuario = async (req, res) => {

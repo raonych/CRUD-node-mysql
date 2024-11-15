@@ -27,6 +27,7 @@ document.querySelector("#signupForm").addEventListener("submit", function(event)
         if (data.token) {
             // Se o cadastro for bem-sucedido, redireciona o usuário para o dashboard
             localStorage.setItem("token", data.token);
+            localStorage.setItem("usuarioId", data.usuarioId);
             window.location.href = "../view/diario.html";
         } else {
             alert(data.erro || "Erro desconhecido");

@@ -1,0 +1,54 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+header {
+    background-color: #589bff; /* Azul similar ao estilo original */
+    padding: 15px 0;
+}
+
+.user-info span {
+    font-size: 1rem;
+}
+
+.card {
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.card-title {
+    color: #589bff;
+}
+
+.card-text {
+    color: #6c757d;
+}
+
+.btn-success {
+    background-color: #0d6eff;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #0056d2;
+}
+
+.btn-info {
+    background-color: #6c757d;
+    border: none;
+}
+
+.btn-info:hover {
+    background-color: #5a6268;
+}
+
+.modal-content {
+    border-radius: 8px;
+}
+
+.modal-header {
+    background-color: #589bff;
+    color: #fff;
+}

@@ -24,11 +24,11 @@ document.querySelector("#signupForm").addEventListener("submit", function(event)
     })
     .then(response => response.json())
     .then(data => {
-        if (data.token) {
+        if (data) {
             // Se o cadastro for bem-sucedido, redireciona o usuário para o dashboard
             localStorage.setItem("token", data.token);
             localStorage.setItem("usuarioId", data.usuarioId);
-            window.location.href = "../view/diario.html";
+            window.location.href = "../view/home.html";
         } else {
             alert(data.erro || "Erro desconhecido");
         }

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Diário de Bordo</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilos Customizados -->
+    <link rel="stylesheet" href="../static/homeStyles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid d-flex flex-column min-vh-100 bg-light">
+        <!-- Cabeçalho -->
+        <header class="d-flex justify-content-between align-items-center p-3 bg-primary text-white shadow-sm">
+            <h2 class="ms-3">Diário de Bordo</h2>
+            <div class="user-info">
+                <button class="btn btn-danger ms-3" onclick="logout()">Logout</button>
+            </div>
+        </header>
+
+        <!-- Conteúdo principal -->
+        <main class="flex-grow-1 d-flex flex-column align-items-center mt-4">
+            <div class="card shadow-sm w-100" style="max-width: 720px;">
+                <div id="container-diarios" class="card-body">
+                    <h3 class="mb-4">Meus Diários</h3>
+                    <button class="btn btn-success mb-3 w-100" data-bs-toggle="modal" data-bs-target="#addDiaryModal">Criar Novo Diário</button>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Modal para Criar Novo Diário -->
+        <div class="modal fade" id="addDiaryModal" tabindex="-1" aria-labelledby="addDiaryModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="addDiaryModalLabel">Criar Novo Diário</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="createDiaryForm">
+                            <div class="mb-3">
+                                <label for="diaryTitle" class="form-label">Título do Diário</label>
+                                <input type="text" class="form-control" id="diaryTitle" placeholder="Ex: Viagem ao litoral">
+                            </div>
+                            <div class="mb-3">
+                                <label for="diarySummary" class="form-label">Resumo</label>
+                                <textarea class="form-control" id="diarySummary" rows="3" placeholder="Resumo do que aconteceu"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="diaryDate" class="form-label">Data</label>
+                                <input type="date" class="form-control" id="diaryDate">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Criar Diário</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript e Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/home.js"></script>
+</body>
+</html>

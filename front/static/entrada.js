@@ -10,18 +10,18 @@ document.querySelector("#entradaForm").addEventListener("submit", function(event
     const time = document.getElementById("time").value; // Hora no formato HH:MM:SS
     const date = document.getElementById("date").value; // Data no formato YYYY-MM-DD
 
-    // Valida se o usuário está logado (com token ou usuárioId no localStorage)
+    // Valida se o usuário está logado (com usuárioId no localStorage)
     if (!usuarioId) {
         alert("Você precisa estar logado para adicionar uma entrada.");
         return;
     }
 
     // Envia os dados para a API de entradas
-    fetch("http://localhost:3001/api/entradas/create", {
+    fetch("http://localhost:3001/api/entradas/createEntrada", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("usuarioId")}` // Envia o token JWT se estiver presente no localStorage
+            "Authorization": `Bearer ${localStorage.getItem("token")}` // Envia o token JWT se estiver presente no localStorage
         },
         body: JSON.stringify({ usuarioId, titulo, conteudo, time, date })
     })

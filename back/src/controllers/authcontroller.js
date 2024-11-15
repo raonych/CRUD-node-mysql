@@ -29,8 +29,7 @@ const cadastrarUsuario = async (req, res) => {
 
         res.status(201).json({ 
             mensagem: "Usuário cadastrado com sucesso", 
-            usuario: novoUsuario,
-            usuarioId: usuario.id   
+            usuario: novoUsuario
         });
     } catch (error) {
         console.error(error);

@@ -4,7 +4,11 @@ const router = express.Router();
 const diarioController = require("../controllers/diariocontroller");
 
 // Rota para adicionar uma entrada
-router.post("/create", diarioController.adicionarEntradaDiario );
+router.post("/createEntrada", diarioController.adicionarEntradaDiario );
+
+router.post("/createDiario", diarioController.adicionarDiario );
+
+router.post("/exibirDiarios", diarioController.exibirDiarios );
 
 
 

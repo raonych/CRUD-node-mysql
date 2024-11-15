@@ -58,8 +58,14 @@ const Backup = con.define("backup",{
 })
 
 const Diario = con.define("diarios", {
-    diario_nome: {
+    nome: {
         type: Sequelize.STRING,
+    },
+    resumo: {
+        type: Sequelize.STRING
+    },
+    data: {
+        type: Sequelize.STRING
     },
     usuarioId: {
         type: Sequelize.INTEGER,

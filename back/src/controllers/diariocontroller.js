@@ -1,7 +1,6 @@
 const { Usuario, Diario, Entradas } = require("../database/db");  // Importando os modelos
 
-// Função para adicionar uma entrada no diário
-
+// Função para listar diarios do usuario 
 const exibirDiarios = async (req, res) => {
     try {
         const usuarioId = req.usuarioId;
@@ -25,7 +24,7 @@ const exibirDiarios = async (req, res) => {
 };
 
 
-
+//funcao para adicionar novo diario ao usuario logado
 const adicionarDiario = async (req,res) => {
     const {nome, resumo, date } = req.body;
     try {
@@ -45,7 +44,7 @@ const adicionarDiario = async (req,res) => {
 
             res.status(201).json({
                 mensagem: "Entrada adicionada com sucesso!",
-                entrada: novaEntrada
+                diario: diario
             });
         }
 
@@ -57,6 +56,7 @@ const adicionarDiario = async (req,res) => {
 }
 
 
+//funcao para adicionar dados linkados ao diario
 const adicionarEntradaDiario = async (req, res) => {
     const {titulo, conteudo, time, date } = req.body;
     

@@ -20,13 +20,13 @@ document.querySelector("#signupForm").addEventListener("submit", function(event)
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ nome, dataNasc, email, senha })
+        body: JSON.stringify({ nome, dataNasc, email, senha})
     })
     .then(response => response.json())
     .then(data => {
         if (data.token) {
             // Se o cadastro for bem-sucedido, redireciona o usuário para o dashboard
-            localStorage.setItem("usuarioId", data.token);
+            localStorage.setItem("token", data.token);
             window.location.href = "../view/diario.html";
         } else {
             alert(data.erro || "Erro desconhecido");

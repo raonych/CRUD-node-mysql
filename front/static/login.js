@@ -9,12 +9,12 @@ document.getElementById("form").addEventListener("submit", function(event) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ email, senha })
+        body: JSON.stringify({ email, senha}), 
     })
     .then(response => response.json())
     .then(data => {
         if (data.token) {
-            localStorage.setItem("usuarioId", data.token);
+            localStorage.setItem("token", data.token);
             window.location.href = "./diario.html"; // Redireciona para o tela inicial
         } else {
             alert(data.erro || "Erro desconhecido");

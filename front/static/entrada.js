@@ -1,3 +1,5 @@
+console.log(localStorage.getItem("usuarioId"))
+
 document.querySelector("#entradaForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Impede o envio padrão do formulário
 
@@ -15,7 +17,7 @@ document.querySelector("#entradaForm").addEventListener("submit", function(event
     }
 
     // Envia os dados para a API de entradas
-    fetch("http://localhost:3001/api/entradas", {
+    fetch("http://localhost:3001/api/entradas/create", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

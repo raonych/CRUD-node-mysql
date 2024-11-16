@@ -1,10 +1,9 @@
-console.log(localStorage.getItem("token"))
-
 document.querySelector("#entradaForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Impede o envio padrão do formulário
 
     // Coleta os dados dos campos do formulário
-    const usuarioId = localStorage.getItem("usuarioId"); // Assumindo que o ID do usuário está armazenado no localStorage
+    const usuarioId = localStorage.getItem("usuarioId");
+    const diarioId = localStorage.getItem("diarioId");
     const token = localStorage.getItem("token"); 
     const titulo = document.getElementById("titulo").value;
     const conteudo = document.getElementById("conteudo").value;
@@ -24,7 +23,7 @@ document.querySelector("#entradaForm").addEventListener("submit", function(event
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}` // Envia o token JWT se estiver presente no localStorage
         },
-        body: JSON.stringify({ usuarioId, titulo, conteudo, time, date })
+        body: JSON.stringify({ usuarioId, diarioId, titulo, conteudo, time, date })
     })
     .then(response => response.json())
     .then(data => {

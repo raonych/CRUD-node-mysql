@@ -58,7 +58,7 @@ const adicionarDiario = async (req,res) => {
 
 //funcao para adicionar dados linkados ao diario
 const adicionarEntradaDiario = async (req, res) => {
-    const {titulo, conteudo, time, date } = req.body;
+    const {diarioId,titulo, conteudo, time, date } = req.body;
     
 
     try {
@@ -70,15 +70,10 @@ const adicionarEntradaDiario = async (req, res) => {
         }
 
         // Verifica se o usuário já tem um diário
-        let diario = await Diario.findOne({ where: { usuarioId: usuarioId} });
+        let diario = await Diario.findOne({ where: { Id : diarioId} });
 
         // Se o usuário não tiver um diário, cria um novo diário
-        if (!diario) {
-            diario = await Diario.create({
-                diario_nome: `Diário de ${usuario.nome}`,  // Nome padrão do diário
-                usuarioId: usuarioId
-            });
-        }
+        
 
         // Cria a entrada no diário
         const novaEntrada = await Entradas.create({

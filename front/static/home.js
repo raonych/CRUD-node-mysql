@@ -5,7 +5,7 @@ function logout() {
     window.location.href = "index.html";
 }
 
-
+//funcão para puxar os dados dos diários existentes
 const carregarDiarios = async () => {
     try {
         const token = localStorage.getItem("token");
@@ -37,9 +37,10 @@ const carregarDiarios = async () => {
 
             diarioDiv.innerHTML = `
                 <div class="card-body">
+                    <input type="hidden" id="diarioId" value="${diario.id}"/>
                     <h5 class="card-title">${diario.nome || "Sem título"}</h5>
                     <p class="card-text">Resumo: ${diario.resumo || "Sem resumo"}<br>Data: ${diario.data ? new Date(diario.data).toLocaleDateString() : "Data não disponível"}</p>
-                    <button class="btn btn-info btn-sm">Ver Detalhes</button>
+                    <button id="${diario.id}" onClick="addContent(event)" class="btn btn-info btn-sm">Adicionar Conteudo</button>
                 </div>
             `;
 
@@ -51,8 +52,10 @@ const carregarDiarios = async () => {
 };
 
 
-
+//Carrega e exibe os diarios ao renderizar o conteudo da página
 document.addEventListener("DOMContentLoaded", carregarDiarios);
+
+
 
 // Funcionalidade de adicionar novo diário
 document.getElementById("createDiaryForm").addEventListener("submit", async function (e) {
@@ -92,11 +95,12 @@ document.getElementById("createDiaryForm").addEventListener("submit", async func
         newDiaryCard.innerHTML = `
             <div class="card-body">
                 <h5 class="card-title">${data.diario.nome}</h5>
+                <input type="hidden" id="diarioId" value="${data.diario.id}"/>
                 <p class="card-text">Resumo: ${data.diario.resumo}. Data: ${data.diario.data ? new Date(data.diario.data).toLocaleDateString() : "Data não disponível"}</p>
-                <button class="btn btn-info btn-sm">Ver Detalhes</button>
+                <form> 
+                <button id="${data.diario.id}" onClick="addContent(event)" class="btn btn-info btn-sm">Adicionar Conteudo</button>
             </div>
         `;
-
         diaryList.appendChild(newDiaryCard);
 
         // Fecha o modal e reseta o formulário
@@ -110,10 +114,11 @@ document.getElementById("createDiaryForm").addEventListener("submit", async func
 
 });
 
-
-
-
-
+function addContent(event){
+    const diarioId = event.target.id;
+    localStorage.setItem("diarioId", diarioId);
+    window.location.href = "./diario.html";
+}
 
 
 

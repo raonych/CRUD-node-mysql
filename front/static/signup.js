@@ -25,7 +25,7 @@ document.querySelector("#signupForm").addEventListener("submit", function(event)
     .then(response => response.json())
     .then(data => {
         if (data) {
-            // Se o cadastro for bem-sucedido, redireciona o usuário para o dashboard
+            // Se o cadastro for bem-sucedido, redireciona o usuário para o home
             localStorage.setItem("token", data.token);
             localStorage.setItem("usuarioId", data.usuarioId);
             window.location.href = "../view/home.html";

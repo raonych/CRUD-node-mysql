@@ -21,7 +21,7 @@ document.querySelector("#entradaForm").addEventListener("submit", function(event
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}` // Envia o token JWT se estiver presente no localStorage
+            "Authorization": `Bearer ${token}` 
         },
         body: JSON.stringify({ usuarioId, diarioId, titulo, conteudo, time, date })
     })
@@ -30,6 +30,7 @@ document.querySelector("#entradaForm").addEventListener("submit", function(event
         if (data.entrada) {
             // Se a entrada for criada com sucesso, exibe uma mensagem e limpa o formulário
             alert("Entrada adicionada com sucesso!");
+            window.location.href = "./diario.html";
             document.querySelector("#entradaForm").reset(); // Limpa o formulário
         } else {
             alert(data.erro || "Erro desconhecido");

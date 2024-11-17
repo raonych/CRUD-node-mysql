@@ -23,10 +23,11 @@ const exibirDiarios = async (req, res) => {
     }
 };
 
+//funcao para listar entradas do diario
 const exibirEntradas = async (req, res) => {
+    const {diarioId} = req.body;  
     try {
         const usuarioId = req.usuarioId;
-        const diarioId = req.body;
         if (!usuarioId) {
             return res.status(400).json({ message: "Usuário não autenticado ou inválido." });
         }
@@ -72,7 +73,7 @@ const adicionarDiario = async (req,res) => {
 
     catch (error) {
         console.error(error);
-        res.status(500).json({ erro: "Erro ao adicionar entrada no diário" });
+        res.status(500).json({ erro: "Erro ao adicionar diário" });
     }
 
 }

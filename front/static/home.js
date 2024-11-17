@@ -38,7 +38,7 @@ const carregarDiarios = async () => {
                 <div class="card-body">
                     <h5 class="card-title">${diario.nome || "Sem título"}</h5>
                     <p class="card-text">Resumo: ${diario.resumo || "Sem resumo"}<br>Data: ${diario.data ? new Date(diario.data).toLocaleDateString() : "Data não disponível"}</p>
-                    <button id="${diario.id}" onClick="viewContent(event)" class="btn btn-info btn-sm">Adicionar Conteudo</button>
+                    <button id="${diario.id}" onClick="viewContent(event)" class="btn btn-info btn-sm">Abrir diário</button>
                 </div>
             `;
 
@@ -95,7 +95,7 @@ document.getElementById("createDiaryForm").addEventListener("submit", async func
                 <h5 class="card-title">${data.diario.nome}</h5>
                 <p class="card-text">Resumo: ${data.diario.resumo}. Data: ${data.diario.data ? new Date(data.diario.data).toLocaleDateString() : "Data não disponível"}</p>
                 <form> 
-                <button id="${data.diario.id}" onClick="viewContent(event)" class="btn btn-info btn-sm">Adicionar Conteudo</button>
+                <button id="${data.diario.id}" onClick="viewContent(event)" class="btn btn-info btn-sm">Abrir diário</button>
             </div>
         `;
         diaryList.appendChild(newDiaryCard);

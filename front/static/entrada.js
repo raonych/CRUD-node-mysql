@@ -2,7 +2,6 @@ document.querySelector("#entradaForm").addEventListener("submit", function(event
     event.preventDefault(); // Impede o envio padrão do formulário
 
     // Coleta os dados dos campos do formulário
-    const usuarioId = localStorage.getItem("usuarioId");
     const diarioId = localStorage.getItem("diarioId");
     const token = localStorage.getItem("token"); 
     const titulo = document.getElementById("titulo").value;
@@ -10,7 +9,7 @@ document.querySelector("#entradaForm").addEventListener("submit", function(event
     const time = document.getElementById("time").value; // Hora no formato HH:MM:SS
     const date = document.getElementById("date").value; // Data no formato YYYY-MM-DD
 
-    // Valida se o usuário está logado (com usuárioId no localStorage)
+    // Valida se o usuário está logado (no localStorage)
     if (!token) {
         alert("Você precisa estar logado para adicionar uma entrada.");
         return;
@@ -23,7 +22,7 @@ document.querySelector("#entradaForm").addEventListener("submit", function(event
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}` 
         },
-        body: JSON.stringify({ usuarioId, diarioId, titulo, conteudo, time, date })
+        body: JSON.stringify({ diarioId, titulo, conteudo, time, date })
     })
     .then(response => response.json())
     .then(data => {

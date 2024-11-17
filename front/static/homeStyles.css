@@ -2,10 +2,15 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #f8f9fa;
     color: #333;
+    overflow-x: hidden;
 }
 
+.container-fluid{
+ width: 100vw;
+ margin: 0;
+}
 header {
-    background-color: #589bff; /* Azul similar ao estilo original */
+    background-color: #589bff; 
     padding: 15px 0;
 }
 

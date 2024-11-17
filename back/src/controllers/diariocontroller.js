@@ -34,12 +34,12 @@ const exibirEntradas = async (req, res) => {
 
         //Busca o diario que corresponnde ao especificado pelo id no Storage
         const entradas = await Entradas.findAll({ where: { diarioId: diarioId} });
-
+        const diario = await Diario.findOne({where: {id: diarioId}});
         if (!entradas.length) {
             return res.status(404).json({ message: `Nenhuma entrada encontrada.` });
         }
 
-        res.json(entradas);
+        res.json({entradas, diario});
     } catch (error) {
         console.error("Erro ao buscar entradas:", error.message);
         res.status(500).json({ message: "Erro interno ao buscar entradas." });

@@ -117,10 +117,3 @@ function viewContent(event){
     localStorage.setItem("diarioId", diarioId);
     window.location.href = "./diario.html";
 }
-
-
-
-
-
-
-

@@ -1,14 +1,14 @@
-// index.js
 const express = require("express");
 const cors = require("cors");
 const rotas = express();
 const { Usuario, Entradas } = require("./src/database/db")
+
 // Importar as rotas
 const authRoutes = require("./src/routes/authRoutes");
 const diarioRoutes = require("./src/routes/diarioRoutes");
 
 rotas.use(cors());
-rotas.use(express.json()); // Para parsear JSON
+rotas.use(express.json()); 
 
 // Definindo a rota principal
 rotas.get("/", (req, res) => {

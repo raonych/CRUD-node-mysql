@@ -2,6 +2,7 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #f8f9fa;
     color: #589bff;
+    overflow-x: hidden;
 }
 
 .form-control, .btn {
@@ -93,6 +94,9 @@ input[type="file"]:hover {
     color: #003366;
 }
 
+button:hover{
+    svg{fill: white;}
+}
 @media (max-width: 768px) {
     .form-entrada {
         padding: 20px;

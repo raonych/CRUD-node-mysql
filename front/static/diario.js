@@ -1,11 +1,11 @@
 const logout = () =>{
-    localStorage.removeItem("usuarioId");
-    localStorage.removeItem("token");
+    localStorage.removeItemItem("usuarioId");
+    localStorage.removeItemItem("token");
     window.location.href = "index.html";
 }
 
-//funcão para puxar os dados dos diários existentes
-const carregarDiarios = async () => {
+//funcão para puxar as entradas do diario 
+const carregarEntradas = async () => {
     try {
         const token = localStorage.getItem("token");
         if (!token) {
@@ -13,12 +13,15 @@ const carregarDiarios = async () => {
             return;
         }
 
-        const resposta = await fetch("http://localhost:3001/api/entradas/exibirDiarios", {
+        const resposta = await fetch("http://localhost:3001/api/entradas/exibirEntradas", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
-            }
+            },
+            body: JSON.stringify({
+                diarioId: localStorage.getItem("diarioId")
+            })
         });
 
         if (!resposta.ok) {
@@ -26,32 +29,34 @@ const carregarDiarios = async () => {
             throw new Error(erro.message || "Erro ao carregar os diários.");
         }
 
-        const diarios = await resposta.json();
+        const entradas = await resposta.json();
+        const container = document.getElementById('entries-container');
 
-        const container = document.getElementById("container-diarios");
-
-        diarios.forEach((diario) => {
-            const diarioDiv = document.createElement("div");
-            diarioDiv.classList.add("card", "mb-3");
-
-            diarioDiv.innerHTML = `
-                <div class="card-body">
-                    <h5 class="card-title">${diario.nome || "Sem título"}</h5>
-                    <p class="card-text">Resumo: ${diario.resumo || "Sem resumo"}<br>Data: ${diario.data ? new Date(diario.data).toLocaleDateString() : "Data não disponível"}</p>
-                    <button id="${diario.id}" onClick="viewContent(event)" class="btn btn-info btn-sm">Adicionar Conteudo</button>
+        entradas.forEach(entrada => {
+            const card = document.createElement('div');
+            card.className = 'col-md-6';
+            card.innerHTML = `
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">${entrada.nome}</h5>
+                        <p class="card-text">${entrada.conteudo}</p>
+                        <p class="card-text text-muted"><small>${entrada.date}</small></p>
+                    </div>
                 </div>
-            `;
-
-            container.appendChild(diarioDiv);
+                `;
+                container.appendChild(card);
         });
+
+        
+        
     } catch (error) {
-        console.error("Erro ao carregar diários:", error.message);
+        console.error("Erro ao carregar entradas:", error.message);
     }
 };
 
 
 //Carrega e exibe os diarios ao renderizar o conteudo da página
-document.addEventListener("DOMContentLoaded", carregarDiarios);
+document.addEventListener("DOMContentLoaded", carregarEntradas);
 
 
 
@@ -110,6 +115,14 @@ document.getElementById("createDiaryForm").addEventListener("submit", async func
     }
 
 });
+
+
+
+
+
+
+
+
 
 //redireciona o usuario para a pagina do diario e envia o id do diario especificado atraves do armazenamento local do navegador
 function viewContent(event){

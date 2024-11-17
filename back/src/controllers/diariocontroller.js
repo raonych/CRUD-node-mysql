@@ -13,13 +13,35 @@ const exibirDiarios = async (req, res) => {
         const diarios = await Diario.findAll({ where: { usuarioId: usuarioId} });
 
         if (!diarios.length) {
-            return res.status(404).json({ message: `Nenhum diário encontrado.${usuarioId}` });
+            return res.status(404).json({ message: `Nenhum diário encontrado.` });
         }
 
         res.json(diarios);
     } catch (error) {
         console.error("Erro ao buscar diários:", error.message);
         res.status(500).json({ message: "Erro interno ao buscar diários." });
+    }
+};
+
+const exibirEntradas = async (req, res) => {
+    try {
+        const usuarioId = req.usuarioId;
+        const diarioId = req.body;
+        if (!usuarioId) {
+            return res.status(400).json({ message: "Usuário não autenticado ou inválido." });
+        }
+
+        //Busca o diario que corresponnde ao especificado pelo id no Storage
+        const entradas = await Entradas.findAll({ where: { diarioId: diarioId} });
+
+        if (!entradas.length) {
+            return res.status(404).json({ message: `Nenhuma entrada encontrada.` });
+        }
+
+        res.json(entradas);
+    } catch (error) {
+        console.error("Erro ao buscar entradas:", error.message);
+        res.status(500).json({ message: "Erro interno ao buscar entradas." });
     }
 };
 
@@ -95,4 +117,4 @@ const adicionarEntradaDiario = async (req, res) => {
     }
 };
 
-module.exports = { adicionarEntradaDiario, adicionarDiario, exibirDiarios };
+module.exports = { adicionarEntradaDiario, adicionarDiario, exibirDiarios, exibirEntradas };

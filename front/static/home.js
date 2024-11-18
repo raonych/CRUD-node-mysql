@@ -1,7 +1,8 @@
 const logout = () =>{
     localStorage.removeItem("usuarioId");
     localStorage.removeItem("token");
-    window.location.href = "index.html";
+    window.location.href = "./index.html";
+    
 }
 
 //funcão para puxar os dados dos diários existentes

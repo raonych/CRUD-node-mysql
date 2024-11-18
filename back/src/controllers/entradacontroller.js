@@ -121,8 +121,8 @@ const deleteEntrada = async (req,res) =>{
         }
     }
     catch (error) {
-        console.error("Erro ao atualizar entrada:", error.message);
-        res.status(500).json({ message: "Erro interno ao atualizar entrada." });
+        console.error("Erro ao deletar entrada:", error.message);
+        res.status(500).json({ message: "Erro interno ao deletar entrada." });
     }
 }
 

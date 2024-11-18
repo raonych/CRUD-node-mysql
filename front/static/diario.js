@@ -30,13 +30,13 @@ const carregarEntradas = async () => {
         const data = await resposta.json();
 
         document.getElementById("diary-title").innerHTML = data.diario.nome;
-        if(data.diario.resumo){
+        if(data){
         const mainContainer = document.getElementById("diary-resume");
         const card = document.createElement('div');
         card.className = 'card h-100';
         card.innerHTML = `
                 <div class="card-body">
-                    <button class="btn btn-outline-danger position-absolute top-0 end-0 m-2 p-1" title="Excluir">
+                    <button onClick="deleteDiario()" class="btn btn-outline-danger position-absolute top-0 end-0 m-2 p-1" title="Excluir">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
@@ -98,6 +98,7 @@ const carregarEntradas = async () => {
 //Carrega e exibe o conteudo do diario ao renderizar o conteudo da página
 document.addEventListener("DOMContentLoaded", carregarEntradas);
 
+//Função para deletar entrada
 const deleteEntrada = async(entradaId) =>{
     const token = localStorage.getItem("token");
     try{
@@ -127,6 +128,7 @@ const deleteEntrada = async(entradaId) =>{
     }
 }
 
+//função que redireciona o usuario para a pagina de formulario com o id da entrada no localStorage
 function editEntrada(entradaId){
     localStorage.setItem("editEntradaId", entradaId);
     window.location.href = "../view/entradaForm.html";
@@ -176,6 +178,40 @@ document.getElementById("createDiaryForm").addEventListener("submit", async func
     }
 });
 
+//funcao para deletar diario
+const deleteDiario = async() =>{
+    const token = localStorage.getItem("token");
+    const diarioId = localStorage.getItem("diarioId");
+    try{
+        const response = await fetch("http://localhost:3001/api/diario/deleteDiario",{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    diarioId: diarioId
+                })
+            });
+
+            if(!response.ok){
+                const erro = await response.json();
+                throw new Error(erro.message || "Erro ao deletar diario");
+            }
+
+            data = await response.json();
+
+            alert(data.message)
+            window.location.href = "./home.html";
+        }
+    catch(error){
+        console.error("Erro ao deletar diario:", error.message);
+    }
+}
+
+
+
+
 const formatDate = (dateString) => {
     const [year, month, day] = dateString.split('-'); 
     return `${day}/${month}/${year}`; 
@@ -184,5 +220,5 @@ const formatDate = (dateString) => {
 const logout = () =>{
     localStorage.removeItem("usuarioId");
     localStorage.removeItem("token");
-    window.location.href = "index.html";
+    window.location.href = "./index.html";
 }

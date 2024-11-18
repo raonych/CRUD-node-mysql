@@ -99,3 +99,6 @@ button:hover{
         padding: 12px;
     }
 }
+.card-body{
+    padding: 25px;
+}

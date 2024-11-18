@@ -8,6 +8,7 @@ const authMiddleware = require("../controllers/authMiddleware");
 router.post("/createDiario", authMiddleware, diarioController.adicionarDiario);
 router.post("/exibirDiarios", authMiddleware, diarioController.exibirDiarios);
 router.post("/editarDiario", authMiddleware, diarioController.editarDiario);
+router.post("/deleteDiario", authMiddleware, diarioController.deleteDiario);
 
 
 module.exports = router;

@@ -83,4 +83,27 @@ const editarDiario = async (req,res) =>{
     }
 }
 
-module.exports = { adicionarDiario, exibirDiarios, editarDiario};
+const deleteDiario = async (req,res) =>{
+    const {diarioId} = req.body;
+    try {
+        const usuarioId = req.usuarioId;
+        if (!usuarioId){
+            return res.status(400).json({message: "Usuário não autenticado"})
+        }
+
+        const deleted = await Diario.destroy({where: {id: diarioId}});
+
+        if(deleted){
+            res.json({message: "Diario deletada com sucesso!"});
+        }    
+        else{
+            res.status(404).json({message:"Diario não encontrado"})
+        }
+    }
+    catch (error) {
+        console.error("Erro ao deletar diario:", error.message);
+        res.status(500).json({ message: "Erro interno ao deletar diario." });
+    }
+}
+
+module.exports = { adicionarDiario, exibirDiarios, editarDiario, deleteDiario};

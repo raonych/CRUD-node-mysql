@@ -1,3 +1,7 @@
+if(localStorage.getItem("token")){
+    window.location.href = "./home.html";
+}
+
 document.getElementById("form").addEventListener("submit", function(event) {
     event.preventDefault();
 

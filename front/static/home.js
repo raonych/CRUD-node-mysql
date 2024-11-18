@@ -94,7 +94,6 @@ document.getElementById("createDiaryForm").addEventListener("submit", async func
             <div class="card-body">
                 <h5 class="card-title">${data.diario.nome}</h5>
                 <p class="card-text">Resumo: ${data.diario.resumo}. Data: ${data.diario.data ? formatDate(data.diario.data): "Data não disponível"}</p>
-                <form> 
                 <button id="${data.diario.id}" onClick="viewContent(event)" class="btn btn-info btn-sm">Abrir diário</button>
             </div>
         `;

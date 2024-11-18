@@ -7,6 +7,7 @@ const authMiddleware = require("../controllers/authMiddleware");
 // Rotas para adicionar entradas, criar diarios e exibir eles
 router.post("/createDiario", authMiddleware, diarioController.adicionarDiario);
 router.post("/exibirDiarios", authMiddleware, diarioController.exibirDiarios);
+router.post("/editarDiario", authMiddleware, diarioController.editarDiario);
 
 
 module.exports = router;

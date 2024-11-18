@@ -28,7 +28,7 @@ document.querySelector("#signupForm").addEventListener("submit", function(event)
             // Se o cadastro for bem-sucedido, redireciona o usuário para o home
             localStorage.setItem("token", data.token);
             localStorage.setItem("usuarioId", data.usuarioId);
-            window.location.href = "../view/login.html";
+            window.location.href = "../view/index.html";
         } else {
             alert(data.erro || "Erro desconhecido");
         }

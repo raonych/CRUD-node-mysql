@@ -34,29 +34,6 @@ const Entradas = con.define("entradas",{
         type: Sequelize.DATE
     }
 })
-const Lembrete = con.define("Lembretes",{
-    lembrete_titulo: {
-        type: Sequelize.STRING,
-    },
-    lembrete_msg:{
-        type: Sequelize.STRING,
-    },
-    lembrete_time: {
-        type: Sequelize.TIME,
-    },
-    lembrete_date: {
-        type: Sequelize.DATE
-    }
-})
-const Backup = con.define("backup",{
-    hora: {
-        type: Sequelize.TIME,
-    },
-    data:{
-        type: Sequelize.DATE
-    },
-})
-
 const Diario = con.define("diarios", {
     nome: {
         type: Sequelize.STRING,
@@ -89,9 +66,7 @@ Entradas.belongsTo(Diario, { foreignKey: 'diarioId' });
 const syncDatabase = async () => {
     try {
         await  Usuario.sync({ alter: true});
-        await Backup.sync({ alter: true});
         await  Diario.sync({ alter: true});
-        await Lembrete.sync({ alter: true});
         await Entradas.sync({ alter: true});
         console.log("Tabelas sincronizadas com sucesso");
     } catch (err) {
@@ -104,7 +79,5 @@ syncDatabase();
 module.exports = {
     Usuario,
     Entradas,
-    Lembrete,
-    Backup,
     Diario
 };

@@ -54,5 +54,33 @@ const adicionarDiario = async (req,res) => {
 
 }
 
+const editarDiario = async (req,res) =>{
+    const {diarioId, nome, resumo, date} = req.body;
+    try {
+        const usuarioId = req.usuarioId;
+        if (!usuarioId){
+            return res.status(400).json({message: "Usuário não autenticado"})
+        }
+        const diario = await Diario.findOne({where: {id: diarioId}});
+        if (!diario) {
+            return res.status(400).json({message:"diario não encontrado"});
+        }
+        const newDiario = await Diario.update(
+            {
+            nome: nome,
+            resumo: resumo,
+            date: date
 
-module.exports = { adicionarDiario, exibirDiarios};
+        },{
+            where: {id: diarioId}
+        });
+
+        res.json({ message: "Diário atualizado com sucesso"});
+    }
+    catch (error) {
+        console.error("Erro ao atualizar diario:", error.message);
+        res.status(500).json({ message: "Erro interno ao atualizar diario." });
+    }
+}
+
+module.exports = { adicionarDiario, exibirDiarios, editarDiario};

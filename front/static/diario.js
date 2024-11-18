@@ -1,8 +1,4 @@
-const logout = () =>{
-    localStorage.removeItem("usuarioId");
-    localStorage.removeItem("token");
-    window.location.href = "index.html";
-}
+localStorage.removeItem("editEntradaId");
 
 //funcão para puxar as entradas do diario 
 const carregarEntradas = async () => {
@@ -52,7 +48,7 @@ const carregarEntradas = async () => {
                     </svg>
                     </button>
                     <p class="card-text">${data.diario.resumo ? data.diario.resumo : ""}</p>
-                    <p class="card-text text-muted"><small>${data.diario.data ? new Date(data.diario.data).toLocaleDateString() :"" }</small></p>
+                    <p class="card-text text-muted"><small>${data.diario.data ? formatDate(data.diario.data) :"" }</small></p>
                 </div>
             `;
         mainContainer.appendChild(card);
@@ -65,7 +61,7 @@ const carregarEntradas = async () => {
             card.innerHTML = `
                 <div class="card h-100 position-relative">
                     <div class="card-body">
-                        <button onClick="" class="btn btn-outline-danger position-absolute top-0 end-0 m-2 p-1" title="Excluir">
+                        <button onClick="deleteEntrada(${entrada.id})" class="btn btn-outline-danger position-absolute top-0 end-0 m-2 p-1" title="Excluir">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
                                 <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
@@ -81,7 +77,7 @@ const carregarEntradas = async () => {
                         <h5 class="card-title">${entrada.titulo}</h5>
                         <p class="card-text">${entrada.conteudo}</p>
                         <p class="card-text text-muted">
-                            <small>${entrada.date ? new Date(entrada.date).toLocaleDateString() : "Data não disponível"}</small>
+                            <small>${entrada.date ? formatDate(entrada.date.slice(0,10)) : "Data não disponível"}</small>
                         </p>
                     </div>
                 </div>
@@ -98,7 +94,48 @@ const carregarEntradas = async () => {
 //Carrega e exibe o conteudo do diario ao renderizar o conteudo da página
 document.addEventListener("DOMContentLoaded", carregarEntradas);
 
+const deleteEntrada = async(entradaId) =>{
+    const token = localStorage.getItem("token");
+    try{
+        const response = await fetch("http://localhost:3001/api/entradas/deleteEntrada",{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    entradaId: entradaId
+                })
+            });
+
+            if(!response.ok){
+                const erro = await response.json();
+                throw new Error(erro.message || "Erro ao deletar entrada");
+            }
+
+            data = await response.json();
+
+            alert(data.message)
+            window.location.href = "./diario.html";
+        }
+    catch(error){
+        console.error("Erro ao deletar entrada:", error.message);
+    }
+}
+
 function editEntrada(entradaId){
     localStorage.setItem("editEntradaId", entradaId);
     window.location.href = "../view/entradaForm.html";
+}
+
+
+const formatDate = (dateString) => {
+    const [year, month, day] = dateString.split('-'); 
+    return `${day}/${month}/${year}`; 
+};
+
+const logout = () =>{
+    localStorage.removeItem("usuarioId");
+    localStorage.removeItem("token");
+    window.location.href = "index.html";
 }

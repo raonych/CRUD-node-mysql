@@ -37,7 +37,7 @@ const carregarDiarios = async () => {
             diarioDiv.innerHTML = `
                 <div class="card-body">
                     <h5 class="card-title">${diario.nome || "Sem título"}</h5>
-                    <p class="card-text">Resumo: ${diario.resumo || "Sem resumo"}<br>Data: ${diario.data ? new Date(diario.data).toLocaleDateString() : "Data não disponível"}</p>
+                    <p class="card-text">Resumo: ${diario.resumo || "Sem resumo"}<br>Data: ${diario.data ?formatDate(diario.data) : "Data não disponível"}</p>
                     <button id="${diario.id}" onClick="viewContent(event)" class="btn btn-info btn-sm">Abrir diário</button>
                 </div>
             `;
@@ -93,7 +93,7 @@ document.getElementById("createDiaryForm").addEventListener("submit", async func
         newDiaryCard.innerHTML = `
             <div class="card-body">
                 <h5 class="card-title">${data.diario.nome}</h5>
-                <p class="card-text">Resumo: ${data.diario.resumo}. Data: ${data.diario.data ? new Date(data.diario.data).toLocaleDateString() : "Data não disponível"}</p>
+                <p class="card-text">Resumo: ${data.diario.resumo}. Data: ${data.diario.data ? formatDate(data.diario.data): "Data não disponível"}</p>
                 <form> 
                 <button id="${data.diario.id}" onClick="viewContent(event)" class="btn btn-info btn-sm">Abrir diário</button>
             </div>
@@ -117,3 +117,9 @@ function viewContent(event){
     localStorage.setItem("diarioId", diarioId);
     window.location.href = "./diario.html";
 }
+
+
+const formatDate = (dateString) => {
+    const [year, month, day] = dateString.split('-'); 
+    return `${day}/${month}/${year}`; 
+};

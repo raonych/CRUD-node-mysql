@@ -74,5 +74,56 @@ const adicionarEntradaDiario = async (req, res) => {
     }
 };
 
+const editarEntrada = async (req,res) =>{
+    const {entradaId, titulo, conteudo, time, date} = req.body;
+    try {
+        const usuarioId = req.usuarioId;
+        if (!usuarioId){
+            return res.status(400).json({message: "Usuário não autenticado"})
+        }
+        const entrada = await Entradas.findOne({where: {id: entradaId}});
+        if (!entrada) {
+            return res.status(400).json({message:"entrada não encontrada"});
+        }
+        const newEntrada = await Entradas.update(
+            {
+            titulo: titulo,
+            conteudo: conteudo,
+            time: time,
+            date: date   
+        },{
+            where: {id: entradaId}
+        });
 
-module.exports = { adicionarEntradaDiario, exibirEntradas, exibirEntrada };
+        res.json({newEntrada});
+    }
+    catch (error) {
+        console.error("Erro ao atualizar entrada:", error.message);
+        res.status(500).json({ message: "Erro interno ao atualizar entrada." });
+    }
+}
+
+const deleteEntrada = async (req,res) =>{
+    const {entradaId} = req.body;
+    try {
+        const usuarioId = req.usuarioId;
+        if (!usuarioId){
+            return res.status(400).json({message: "Usuário não autenticado"})
+        }
+
+        const deleted = await Entradas.destroy({where: {id: entradaId}});
+
+        if(deleted){
+            res.json({message: "Entrada deletada com sucesso!"});
+        }    
+        else{
+            res.status(404).json({message:"Entrada não encontrada"})
+        }
+    }
+    catch (error) {
+        console.error("Erro ao atualizar entrada:", error.message);
+        res.status(500).json({ message: "Erro interno ao atualizar entrada." });
+    }
+}
+
+module.exports = { adicionarEntradaDiario, exibirEntradas, exibirEntrada, editarEntrada, deleteEntrada };

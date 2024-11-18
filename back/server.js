@@ -6,7 +6,7 @@ const { Usuario, Entradas } = require("./src/database/db")
 // Importar as rotas
 const authRoutes = require("./src/routes/authRoutes");
 const diarioRoutes = require("./src/routes/diarioRoutes");
-
+const entradaRoutes = require("./src/routes/entradaRoutes")
 rotas.use(cors());
 rotas.use(express.json()); 
 
@@ -17,7 +17,8 @@ rotas.get("/", (req, res) => {
 
 // Usando as rotas
 rotas.use("/api/auth", authRoutes);
-rotas.use("/api/entradas", diarioRoutes);
+rotas.use("/api/diario", diarioRoutes);
+rotas.use("/api/entradas", entradaRoutes);
 
 rotas.get("/exibir", async function (req, res) {
     try{

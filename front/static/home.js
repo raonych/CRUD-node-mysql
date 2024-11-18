@@ -13,7 +13,7 @@ const carregarDiarios = async () => {
             return;
         }
 
-        const resposta = await fetch("http://localhost:3001/api/entradas/exibirDiarios", {
+        const resposta = await fetch("http://localhost:3001/api/diario/exibirDiarios", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -65,7 +65,7 @@ document.getElementById("createDiaryForm").addEventListener("submit", async func
     const token = localStorage.getItem("token");
 
     try {
-        const response = await fetch("http://localhost:3001/api/entradas/createDiario", {
+        const response = await fetch("http://localhost:3001/api/diario/createDiario", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -103,3 +103,7 @@ button:hover{
 .card-body{
     padding: 25px;
 }
+
+.card-text{
+    padding-inline: 20px;
+}

@@ -82,6 +82,7 @@ const carregarEntradas = async () => {
                         <p class="card-text">${entrada.conteudo}</p>
                         <p class="card-text text-muted">
                             <small>${entrada.date ? formatDate(entrada.date.slice(0,10)) : "Data não disponível"}</small>
+                            <small>${entrada.time ? entrada.time.slice(0,5) : "Data não disponível"}</small>
                         </p>
                     </div>
                 </div>

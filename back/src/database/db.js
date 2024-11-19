@@ -42,7 +42,7 @@ const Diario = con.define("diarios", {
         type: Sequelize.STRING
     },
     data: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
     },
     usuarioId: {
         type: Sequelize.INTEGER,

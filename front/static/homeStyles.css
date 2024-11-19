@@ -6,8 +6,8 @@ body {
 }
 
 .container-fluid{
- width: 100vw;
- margin: 0;
+    padding-left: 0;
+    padding-right: 0;
 }
 header {
     background-color: #589bff; 

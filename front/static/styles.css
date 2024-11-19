@@ -5,6 +5,11 @@ body {
     overflow-x: hidden;
 }
 
+.container-fluid{
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .form-control, .btn {
     border-radius: 8px;
 }

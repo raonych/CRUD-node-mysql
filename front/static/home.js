@@ -11,6 +11,7 @@ const carregarDiarios = async () => {
         const token = localStorage.getItem("token");
         if (!token) {
             alert("Usuário não autenticado.");
+            window.location.href = "./index.html";
             return;
         }
 
